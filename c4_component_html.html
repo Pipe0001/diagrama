@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C4 - Nivel 3: Componentes - Servicios Backend Wings</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .diagram {
+            position: relative;
+            width: 100%;
+            height: 900px;
+            border: 2px solid #333;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .service-boundary {
+            position: absolute;
+            border: 2px dashed;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .service-title {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: white;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+        .component {
+            position: absolute;
+            width: 120px;
+            height: 50px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 9px;
+            font-weight: bold;
+            border: 2px solid;
+            color: white;
+        }
+        .controller {
+            background: #e74c3c;
+            border-color: #c0392b;
+        }
+        .service {
+            background: #3498db;
+            border-color: #2980b9;
+        }
+        .repository {
+            background: #27ae60;
+            border-color: #229954;
+        }
+        .security {
+            background: #9b59b6;
+            border-color: #8e44ad;
+        }
+        .container-ext {
+            position: absolute;
+            width: 140px;
+            height: 60px;
+            background: #1ba1e2;
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            border: 2px solid #0d5aa7;
+        }
+        .database {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            background: #f39c12;
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 9px;
+            font-weight: bold;
+            border: 2px solid #d68910;
+        }
+        .external-system {
+            position: absolute;
+            width: 120px;
+            height: 50px;
+            background: #95a5a6;
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 9px;
+            font-weight: bold;
+            border: 2px solid #7f8c8d;
+        }
+        .arrow {
+            position: absolute;
+            background: #333;
+            height: 1px;
+            transform-origin: left center;
+        }
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 0;
+            height: 0;
+            border-left: 4px solid #333;
+            border-top: 2px solid transparent;
+            border-bottom: 2px solid transparent;
+        }
+        .arrow-label {
+            position: absolute;
+            background: white;
+            padding: 1px 3px;
+            font-size: 7px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+        .legend {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+        .legend-box {
+            width: 12px;
+            height: 10px;
+            margin-right: 5px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">C4 - Nivel 3: Diagrama de Componentes - Servicios Backend Wings</div>
+        
+        <div class="diagram">
+            <!-- External containers -->
+            <div class="container-ext" style="top: 30px; left: 50px;">
+                <div>🌐 Web App</div>
+                <div style="font-size: 8px;">React Frontend</div>
+            </div>
+            <div class="container-ext" style="top: 30px; left: 220px;">
+                <div>🚪 API Gateway</div>
+                <div style="font-size: 8px;">Kong</div>
+            </div>
+            
+            <!-- Booking Service Boundary -->
+            <div class="service-boundary" style="top: 120px; left: 30px; width: 350px; height: 180px; border-color: #27ae60;">
+                <div class="service-title" style="color: #27ae60;">📋 Servicio de Reservas</div>
+                
+                <div class="component controller" style="top: 25px; left: 20px;">
+                    <div>Booking Controller</div>
+                    <div style="font-size: 7px;">REST/GraphQL</div>
+                </div>
+                <div class="component service" style="top: 25px; left: 160px;">
+                    <div>Booking Manager</div>
+                    <div style="font-size: 7px;">Business Logic</div>
+                </div>
+                <div class="component service" style="top: 90px; left: 20px;">
+                    <div>Seat Assignment</div>
+                    <div style="font-size: 7px;">Asignación Asientos</div>
+                </div>
+                <div class="component service" style="top: 90px; left: 160px;">
+                    <div>Pricing Engine</div>
+                    <div style="font-size: 7px;">Motor Precios</div>
+                </div>
+                <div class="component repository" style="top: 90px; left: 300px;">
+                    <div>Booking Repository</div>
+                    <div style="font-size: 7px;">Data Access</div>
+                </div>
+            </div>
+            
+            <!-- Flight Service Boundary -->
+            <div class="service-boundary" style="top: 120px; left: 400px; width: 350px; height: 180px; border-color: #3498db;">
+                <div class="service-title" style="color: #3498db;">✈️ Servicio de Vuelos</div>
+                
+                <div class="component controller" style="top: 25px; left: 20px;">
+                    <div>Flight Controller</div>
+                    <div style="font-size: 7px;">GraphQL API</div>
+                </div>
+                <div class="component service" style="top: 25px; left: 160px;">
+                    <div>Flight Manager</div>
+                    <div style="font-size: 7px;">Business Logic</div>
+                </div>
+                <div class="component service" style="top: 90px; left: 20px;">
+                    <div>Schedule Manager</div>
+                    <div style="font-size: 7px;">Horarios</div>
+                </div>
+                <div class="component service" style="top: 90px; left: 160px;">
+                    <div>Route Optimizer</div>
+                    <div style="font-size: 7px;">Rutas</div>
+                </div>
+                <div class="component repository" style="top: 90px; left: 300px;">
+                    <div>Flight Repository</div>
+                    <div style="font-size: 7px;">Data Access</div>
+                </div>
+            </div>
+            
+            <!-- IAM Service Boundary -->
+            <div class="service-boundary" style="top: 320px; left: 30px; width: 350px; height: 180px; border-color: #9b59b6;">
+                <div class="service-title" style="color: #9b59b6;">🔐 Servicio IAM</div>
+                
+                <div class="component security" style="top: 25px; left: 20px;">
+                    <div>Auth Controller</div>
+                    <div style="font-size: 7px;">Spring Security</div>
+                </div>
+                <div class="component security" style="top: 25px; left: 160px;">
+                    <div>User Manager</div>
+                    <div style="font-size: 7px;">Gestión Usuarios</div>
+                </div>
+                <div class="component security" style="top: 90px; left: 20px;">
+                    <div>MFA Service</div>
+                    <div style="font-size: 7px;">Multi-Factor Auth</div>
+                </div>
+                <div class="component security" style="top: 90px; left: 160px;">
+                    <div>Token Service</div>
+                    <div style="font-size: 7px;">JWT/OAuth2</div>
+                </div>
+                <div class="component repository" style="top: 90px; left: 300px;">
+                    <div>User Repository</div>
+                    <div style="font-size: 7px;">Data Access</div>
+                </div>
+            </div>
+            
+            <!-- Payment Service Boundary -->
+            <div class="service-boundary" style="top: 320px; left: 400px; width: 350px; height: 180px; border-color: #e74c3c;">
+                <div class="service-title" style="color: #e74c3c;">💳 Servicio de Pagos</div>
+                
+                <div class="component controller" style="top: 25px; left: 20px;">
+                    <div>Payment Controller</div>
+                    <div style="font-size: 7px;">REST API</div>
+                </div>
+                <div class="component service" style="top: 25px; left: 160px;">
+                    <div>Payment Processor</div>
+                    <div style="font-size: 7px;">Transacciones</div>
+                </div>
+                <div class="component service" style="top: 90px; left: 20px;">
+                    <div>Fraud Detector</div>
+                    <div style="font-size: 7px;">Anti-fraude</div>
+                </div>
+                <div class="component service" style="top: 90px; left: 160px;">
+                    <div>Gateway Adapter</div>
+                    <div style="font-size: 7px;">Adaptador</div>
+                </div>
+                <div class="component repository" style="top: 90px; left: 300px;">
+                    <div>Transaction Repo</div>
+                    <div style="font-size: 7px;">Data Access</div>
+                </div>
+            </div>
+            
+            <!-- Databases -->
+            <div class="database" style="top: 550px; left: 200px;">
+                <div>🗃️ PostgreSQL</div>
+                <div style="font-size: 7px;">Main DB</div>
+            </div>
+            <div class="database" style="top: 550px; left: 320px;">
+                <div>⚡ Redis</div>
+                <div style="font-size: 7px;">Cache</div>
+            </div>
+            
+            <!-- External Systems -->
+            <div class="external-system" style="top: 420px; left: 800px;">
+                <div>💳 Payment Gateway</div>
+                <div style="font-size: 7px;">Externa</div>
+            </div>
+            
+            <!-- Key Arrows -->
+            <div class="arrow" style="top: 89px; left: 190px; width: 60px;"></div>
+            <div class="arrow-label" style="top: 85px; left: 210px;">HTTPS</div>
+            
+            <div class="arrow" style="top: 89px; left: 360px; width: 60px;"></div>
+            <div class="arrow-label" style="top: 85px; left: 380px;">GraphQL</div>
+            
+            <div class="arrow" style="top: 150px; left: 150px; width: 40px;"></div>
+            <div class="arrow-label" style="top: 146px; left: 160px;">Call</div>
+            
+            <div class="arrow" style="top: 350px; left: 150px; width: 40px;"></div>  
+            <div class="arrow-label" style="top: 346px; left: 160px;">Auth</div>
+            
+            <div class="arrow" style="top: 500px; left: 350px; width: 40px; transform: rotate(90deg);"></div>
+            <div class="arrow-label" style="top: 520px; left: 360px;">SQL</div>
+            
+            <div class="arrow" style="top: 440px; left: 630px; width: 140px;"></div>
+            <div class="arrow-label" style="top: 436px; left: 680px;">HTTPS/REST</div>
+            
+            <!-- Legend -->
+            <div class="legend">
+                <div style="font-weight: bold; margin-bottom: 5px; font-size: 11px;">Leyenda</div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #e74c3c;"></div>
+                    <span>Controller</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #3498db;"></div>
+                    <span>Service</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #27ae60;"></div>
+                    <span>Repository</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #9b59b6;"></div>
+                    <span>Security</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #f39c12;"></div>
+                    <span>Database</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #95a5a6;"></div>
+                    <span>External</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
